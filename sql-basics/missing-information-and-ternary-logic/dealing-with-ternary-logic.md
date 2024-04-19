@@ -1,0 +1,17 @@
+# Dealing with ternary logic
+
+To list all non-breed animals, we might be tempted to use a comparison predicate breed equals null. By now we know that every comparison operation involving nulls always evaluates to a null, so now we understand why these queries return an empty set, regardless if you use equality, non-equality, or any other mathematical comparison. Even a composite filter where a breed is equal to null or not equal to null returns an empty set. And intuitively it should return all animals, right? Even more confusing is that a predicate looking for all animals, which are a bull mastiff or all those that are not a bull mastiff doesn't return non-breed animals. All this is counter-intuitive for our humble, limited human brains. We expect all animals to be returned if they either equal something or not equal the same thing. But it doesn't work that way with ternary logic. Most of you probably know that in order to filter for non-breed animals, we need to use the state predicate IS NULL, or it's negative form, IS NOT NULL. <mark style="color:purple;">This is a fundamentally different question than does this animal breed equal null. The IS NULL predicate can be translated to English as is it true that this animal's breed is unknown or inapplicable? State predicates can evaluate to either true or false but never to a null.</mark>&#x20;
+
+<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+
+Back to the bull mastiffs. So, how do we go about filtering for animals that are not bull mastiffs without eliminating all the breed ones? Most often I see developers just add another predicate, or breed is null. While it does give us the desired result, it is too verbose and maybe confusing to less experienced developers. If you're using SQL Server, Oracle, MySQL, and most other databases, we're out of luck. We have no choice but to add the additional predicate like this one or some other creative ideas, such as adding an ISNULL conditional function.&#x20;
+
+<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+
+The ANSI SQL standard does offer elegant predicate operators that come to the rescue. The first one is called a distinct predicate, and it is spelled is or is not distinct from. The idea here is that different values are distinct from themselves and from nulls, but one null is not distinct from another null even though it's not equal. Therefore, breed is distinct from bull mastiff will return all animals that are not bull mastiffs and will include those with a null breed.&#x20;
+
+<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+
+Another very elegant feature of the SQL standard is called a truth test. A truth test is a logical operator that tests the result of another predicate. It is spelled is or is not true, false, or unknown. Select star from animals where breed equals bull mastiff is not true will evaluate to true only if the predicate in parenthesis is either false or unknown, and it will evaluate to false when the predicate is true. Mind blowing ternary logic. Unfortunately, among the mainstream databases, both distinct predicates and truth tests are currently implemented by only post-square SQL. Hopefully, others will follow soon. These are extremely useful and cool feature which could make our code so much more readable and elegant.&#x20;
