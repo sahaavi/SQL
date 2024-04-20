@@ -22,6 +22,7 @@
   * [Grouping](sql-basics/grouping.md)
   * [Ordering and Paging](sql-basics/ordering-and-paging.md)
   * [Common Table Expressions (CTE)](sql-basics/common-table-expressions-cte.md)
+* [SET Operators](set-operators.md)
 * [Windows Function](windows-function/README.md)
   * [LAG() & LEAD()](windows-function/lag-and-lead.md)
   * [Ranking Windows Functions](windows-function/ranking-windows-functions.md)
