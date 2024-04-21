@@ -20,21 +20,21 @@ also can write
 
 A natural join allows us to omit the qualification predicates altogether. It assumes the predicate consists of all columns that have the same exposed aliases in both sets and it will construct an equality qualification predicate including each and every one. Avoid using natural join like the plague. It makes the query less readable and less portable but that's not the issue. I have witnessed applications failing miserably with devastating consequences when additional columns were added to the underlying tables and some happened to have the same name. The most common cases had to do with tracking attributes such as modified on, modified by and various Boolean flags such as is deleted, is active, et cetera. These columns were added to the natural join predicate and you can imagine what that did to the query result. So, consider yourself warned.
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Every join begins with a Cartesian product where every element from the blue set is matched with every element from the orange set. Cross joins end here.&#x20;
 
-<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
 
 All other join types proceed to a qualification phase where each row of the Cartesian product is evaluated using the qualification predicate. And this is true, regardless what qualification predicate we use. It can be an equality operator and non equality, or even a constant Boolean expression. If the qualification predicate uses an equality operator, only the row with a two twos qualifies.&#x20;
 
-<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
 
 For a different than operator, all the rows except the previous one qualify, and for a larger than operator, only the row with a blue three and orange two qualifies.
 
