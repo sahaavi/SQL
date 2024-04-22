@@ -1,6 +1,62 @@
 # Framing Rows and ranges
 
+<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
 
+Range Partitioning is a kind of horizontal partitioning. Partitions are created based on non-overlapping partition keys. Now, partition keys are often based on time but numeric ranges and alphabetic ranges are also used.
+
+<figure><img src="../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+
+Partitions are bounded by minimum and maximum values on the partition key. Since the partitions are essentially separate tables, each partition can have its own indexes and constraints.
+
+<figure><img src="../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
+
+In this example, we're collecting measurements. Each measurement has a location, a date, temperature and relative humidity. The partition key is the date of the measurement.
+
+<figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
+
+Now, we can partition this table into week long partitions. Here we create one partition for each week. The range of values for the partition key span one week in each partition.
+
+<figure><img src="../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
+
+Partitioning by range works well in a number of cases, such as when we typically query the latest data or perform comparative queries between periods of time, such as a report on this month's sales compared to last year's sales in the same month. Range partitioning also works well when we query data within a single partition. If you drop data after a certain amount of time, partitioning can make the deleting operation more efficient because the entire partition can be deleted.
+
+<figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+
+Partitioning by list is a type of horizontal partitioning. Data is divided among partitions, based on a partition key. In this case, the partition values are defined in a list of values.
+
+<figure><img src="../.gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
+
+Now, there is a partition key, which takes values from a list of partition values. The partition bounds, are the list of values allowed in the partition. And, like other forms of horizontal partitioning, each partition can have its own indexes, constraints, and defaults.
+
+<figure><img src="../.gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
+
+Here's a product catalog example. In this products table, we have an ID, name, short and long description, and a product category. And the partition key is the product category. Notice, that when we define the partition table, we have to list the values of the partition key, that will be allowed in that partition.&#x20;
+
+<figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
+
+We use list partitioning, when data logically groups into subgroups, based on the partition key values. For example, we could have a partition for clothing, and another for electronics. This works well when most queries are within a partition. For example, we might report on clothing or electronics individually, but rarely compare the two. List partitioning is a good option, when your data is not so time-oriented, that date-based partitioning would make more sense.
+
+<figure><img src="../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+
+Hash partitioning is a type of horizontal partitioning. The partition key is used as input into a function that computes a value indicating which partition should store a row of data.
+
+<figure><img src="../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
+
+Consider a database tracking the way customers use a web application. We might want to track each URL the customer visits the time spent on that page, the order in which the customer navigated from one page to another. We could use the CI ID column as a partition key. If we want to keep customers interactions together we could use a customer ID or session ID to ensure that all rows with a customer ID or session ID are in the same partition.
+
+<figure><img src="../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
+
+Here, for example, we create a set of five partitions. The CI ID is divided by five using modular division which allows us to use the remainder as the partition key.&#x20;
+
+We use hash partitions when the data does not logically group into subgroups, and we want to maintain a fairly even distribution across partitions. And there's no need for subgroup specific operations such as dropping a particular partition.
+
+<figure><img src="../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
+
+So with partitioning we have the option of using range partitioning list partitioning or hash partitioning. And each is really useful for a particular use case. So in this case hash partitions are really useful when we have say high cardinality values like a customer identifier that we want to work with. Lists is useful when we have very low cardinality sort of values that we want to use. And range partitioning is really useful when we have date time attributes that we want to partition on.
 
 <figure><img src="../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
 

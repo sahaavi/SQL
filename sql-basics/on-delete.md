@@ -1,6 +1,6 @@
 # On Delete
 
-<figure><img src="../.gitbook/assets/image (18) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Let's say we deleted manager whom id is 102. Now 102 is associated with branch table as well. So if we delete this employee what will happen to Branch table 2nd row where mgr\_id is 102.
 

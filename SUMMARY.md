@@ -32,6 +32,8 @@
   * [Framing Rows and ranges](windows-function/framing-rows-and-ranges.md)
   * [Offset window Functions](windows-function/offset-window-functions.md)
   * [Ranking Windows Functions](windows-function/ranking-windows-functions.md)
+* [Indexes](indexes.md)
+* [Views](views.md)
 * [ER Diagrams](er-diagrams/README.md)
   * [Designing A ER Diagram](er-diagrams/designing-a-er-diagram.md)
   * [Converting ER Diagram to Schema](er-diagrams/converting-er-diagram-to-schema.md)
