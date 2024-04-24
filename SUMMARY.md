@@ -59,3 +59,4 @@
       * [Finding Updated Records](<queries/stratascratch/Microsoft/Finding Updated Records.md>)
 * [Animal Shelter Database](animal-shelter-database.md)
 * [Cursors](cursors.md)
+* [Object Relational Mapping](object-relational-mapping.md)
