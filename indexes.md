@@ -4,7 +4,7 @@ When it comes to developing efficient relational database applications, one of t
 
 One common technique for improving query time is to use indexes. With indexes, we can avoid costly full table scans. Let's create an index on the salary column in the staff table.
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 If we run this there won't be anything in result.
 

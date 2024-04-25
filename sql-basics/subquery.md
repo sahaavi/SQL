@@ -22,7 +22,7 @@ Subqueries return a set, and a set has no order. A table subquery may return any
 
 Each of the three subquery types can be either correlated or non-correlated. Non-correlated subqueries are standalone queries. They are independent of the query that they are contained in, which is often called their parent or the outer query. Correlated subqueries do not stand alone. They include an expression that references a value from the outer or parent query.
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
