@@ -1,2 +1,0 @@
-# sql server management studio
-

@@ -1,3 +1,125 @@
+--Total number of animals in our shelter ever
+-- OVER ()
+USE Animal_Shelter;
+SELECT 	species, 
+		name, 
+		primary_color, 
+		admission_date
+FROM 	animals
+ORDER BY admission_date ASC;
+
+SELECT 	species, 
+		name, 
+		primary_color, 
+		admission_date,
+		(	SELECT COUNT (*) 
+			FROM animals
+		) AS number_of_animals
+FROM 	animals
+ORDER BY admission_date ASC;
+
+SELECT 	species, 
+		name, 
+		primary_color, 
+		admission_date,
+		COUNT (*) 
+		OVER () AS number_of_animals
+FROM 	animals
+ORDER BY admission_date ASC;
+
+-- total number of animals in our shelter since 2017
+
+-- FILTER
+
+SELECT 	species, 
+		name, 
+		primary_color, 
+		admission_date,
+		(	SELECT 	COUNT (*) 
+			FROM 	animals
+			WHERE 	admission_date >= '2017-01-01'
+		) AS number_of_animals
+FROM 	animals
+ORDER BY admission_date ASC;
+
+SELECT 	species, 
+		name, 
+		primary_color, 
+		admission_date,
+		(	SELECT 	COUNT (*) 
+			FROM 	animals
+			WHERE 	admission_date >= '2017-01-01'
+		) AS number_of_animals
+FROM 	animals
+WHERE 	admission_date >= '2017-01-01'
+ORDER BY admission_date ASC;
+
+SELECT 	species, 
+		name, 
+		primary_color, 
+		admission_date,
+		COUNT (*)
+		FILTER (WHERE admission_date >= '2017-01-01')
+		OVER () AS number_of_animals
+FROM 	animals
+ORDER BY admission_date ASC;
+
+SELECT 	species,
+		name, 
+		primary_color, 
+		admission_date,
+		COUNT (*)
+		OVER () AS number_of_animals
+FROM 	animals	
+WHERE 	admission_date >= '2017-01-01'
+ORDER BY admission_date ASC;
+
+-- number of animals in each species
+
+-- PARTITION BY
+
+SELECT 	a1.species, 
+		a1.name, 
+		a1.primary_color, 
+		a1.admission_date,
+		(	SELECT 	COUNT (*) 
+			FROM 	animals AS a2
+			WHERE 	a2.species = a1.species
+		) AS number_of_species_animals
+FROM 	animals AS a1
+ORDER BY 	a1.species ASC, 
+			a1.admission_date ASC;
+		
+SELECT 	species,
+		name,
+		primary_color,
+		admission_date,
+		COUNT (*) 
+		OVER (PARTITION BY species) AS number_of_species_animals
+FROM 	animals
+ORDER BY 	species ASC, 
+			admission_date ASC;
+
+-- Optimized subquery solution
+
+SELECT 	a.species, 
+		a.name, 
+		a.primary_color, 
+		a.admission_date,
+		species_counts.number_of_species_animals
+FROM 	animals AS a
+		INNER JOIN 
+		(	SELECT 	species,
+					COUNT(*) AS number_of_species_animals
+			FROM 	animals
+			GROUP BY species
+		) AS species_counts
+		ON a.species = species_counts.species
+ORDER BY 	a.species ASC,
+			a.admission_date ASC;
+
+
+
 /*
 The following is an exmaple of a query using ROW_NUMBER, to return each customer's recent order.
 Task: Write a query using ROW_NUMBER to return each customer's most recent order.
